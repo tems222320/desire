@@ -1,6 +1,9 @@
-html {
+﻿html {
     scroll-behavior: smooth;
     scroll-padding-top: 96px;
+    overflow-x: hidden;
+    width: 100%;
+    min-width: 100%;
 }
 
 :root {
@@ -17,6 +20,18 @@ html {
 
 * {
     box-sizing: border-box;
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
 }
 
 body {
@@ -1547,3 +1562,4 @@ body.loaded {
         padding: 1.25rem 1rem;
     }
 }
+

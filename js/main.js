@@ -10,11 +10,31 @@ function initMobileMenu() {
     
     if (!toggle || !links) return;
     
+    const updateNavAria = () => {
+        const isMobile = window.innerWidth <= 720;
+        const expanded = toggle.classList.contains('active');
+
+        toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        links.setAttribute('aria-hidden', isMobile && !expanded ? 'true' : 'false');
+    };
+
+    // Initialize ARIA state based on current viewport
+    updateNavAria();
+    
     // Toggle menu on button click
     toggle.addEventListener('click', (e) => {
         e.preventDefault();
         links.classList.toggle('active');
         toggle.classList.toggle('active');
+        updateNavAria();
+    });
+
+    // Support keyboard activation (Space/Enter)
+    toggle.addEventListener('keydown', (e) => {
+        if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Enter') {
+            e.preventDefault();
+            toggle.click();
+        }
     });
 
     // Close menu when link is clicked
@@ -22,6 +42,7 @@ function initMobileMenu() {
         link.addEventListener('click', () => {
             links.classList.remove('active');
             toggle.classList.remove('active');
+            updateNavAria();
         });
     });
     
@@ -30,6 +51,7 @@ function initMobileMenu() {
         if (!e.target.closest('.navbar')) {
             links.classList.remove('active');
             toggle.classList.remove('active');
+            updateNavAria();
         }
     });
 }
@@ -64,6 +86,9 @@ function updateActiveNav() {
 }
 
 window.addEventListener('scroll', updateActiveNav);
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+});
 
 // Reveal Animation Observer
 const revealObserver = new IntersectionObserver((entries) => {
@@ -76,9 +101,10 @@ const revealObserver = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.15 });
 
-// Add reveal class and observe elements
-document.querySelectorAll('.section, .hero-copy, .hero-panel, .project-card, .skill-card, .contact-card, .stat-card').forEach(el => {
+// Add reveal class, stagger animation delays, and observe elements
+document.querySelectorAll('.section, .hero-copy, .hero-panel, .project-card, .skill-card, .contact-card, .stat-card').forEach((el, index) => {
     el.classList.add('reveal');
+    el.style.transitionDelay = `${index * 80}ms`;
     revealObserver.observe(el);
 });
 
@@ -101,16 +127,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Interactive Card Hover Effects
+// Interactive Card Hover and Keyboard Effects
 const projectCards = document.querySelectorAll('.project-card');
 projectCards.forEach(card => {
-    card.addEventListener('click', function(e) {
-        e.preventDefault();
-        const videoUrl = this.getAttribute('data-video');
-        if (videoUrl && videoUrl !== '#') {
-            openVideoModal(videoUrl);
+    const openVideo = (e) => {
+        if (e.type === 'click' || e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const videoUrl = card.getAttribute('data-video');
+            if (videoUrl && videoUrl !== '#') {
+                openVideoModal(videoUrl);
+            }
         }
-    });
+    };
+
+    card.addEventListener('click', openVideo);
+    card.addEventListener('keydown', openVideo);
 });
 
 // Video Modal Functions
@@ -268,8 +299,16 @@ window.addEventListener('resize', () => {
     
     if (window.innerWidth > 720 && navLinks) {
         navLinks.classList.remove('active');
-        if (navToggle) navToggle.classList.remove('active');
+        if (navToggle) {
+            navToggle.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+        }
+        navLinks.setAttribute('aria-hidden', 'false');
         toggleBodyScroll(false);
+    } else if (window.innerWidth <= 720 && navLinks) {
+        if (!navToggle?.classList.contains('active')) {
+            navLinks.setAttribute('aria-hidden', 'true');
+        }
     }
 });
 

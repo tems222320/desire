@@ -9,15 +9,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <nav class="navbar">
         <div class="logo"><span class="logo-icon"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i></span>SiteSavvy</div>
-        <ul class="nav-links">
+        <ul id="primary-navigation" class="nav-links" role="navigation" aria-hidden="false">
             <li><a href="#about">About</a></li>
             <li><a href="#work">Work</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <button class="nav-toggle" aria-label="Toggle navigation menu">
+        <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-navigation" role="button" tabindex="0">
             <span></span>
             <span></span>
             <span></span>
@@ -64,7 +65,7 @@
         </div>
     </section>
 
-    <main>
+    <main id="main">
         <section id="about" class="section about-section">
             <div class="section-heading">
                 <span class="section-number">01</span>
@@ -77,7 +78,7 @@
                     <div class="about-meta">
                         <div>
                             <strong>Full-stack developer</strong>
-                            <p>PHP / JAVASCRIPT / CSS / HTML / BOOTSTRAP</p>
+                            <p>PHP / JavaScript / React / Node.js / TypeScript / Tailwind / SASS / MySQL / Git / Docker / CSS / HTML / Bootstrap</p>
                         </div>
                         <div>
                             <strong>Based in</strong>
@@ -85,7 +86,7 @@
                         </div>
                     </div>
                 </div>
-                <img src="./img/WhatsApp Image 2026-05-11 at 8.29.44 AM.jpeg" alt="Thelma profile portrait" class="profile-pic">
+                <img src="./img/WhatsApp Image 2026-05-11 at 8.29.44 AM.jpeg" alt="Thelma profile portrait" class="profile-pic" loading="lazy" decoding="async">
             </div>
         </section>
 
@@ -95,9 +96,9 @@
                 <h2>Selected Work</h2>
             </div>
             <div class="work-grid">
-                <article class="project-card" data-video="./VID/coffee.mp4">
+                <article class="project-card" data-video="./VID/coffee.mp4" role="button" tabindex="0" aria-label="Open Coffee & Snacks Launch preview video">
                     <div class="project-thumbnail">
-                        <video src="./VID/coffee.mp4"></video>
+                        <video src="./VID/coffee.mp4" preload="metadata" playsinline muted tabindex="0"></video>
                         <div class="play-button">▶</div>
                     </div>
                     <div class="project-content">
@@ -109,9 +110,9 @@
                         </div>
                     </div>
                 </article>
-                <article class="project-card" data-video="./VID/crypto.mp4">
+                <article class="project-card" data-video="./VID/crypto.mp4" role="button" tabindex="0" aria-label="Open Crypto Experience preview video">
                     <div class="project-thumbnail">
-                        <video src="./VID/crypto.mp4"></video>
+                        <video src="./VID/crypto.mp4" preload="metadata" playsinline muted tabindex="0"></video>
                         <div class="play-button">▶</div>
                     </div>
                     <div class="project-content">
@@ -123,9 +124,9 @@
                         </div>
                     </div>
                 </article>
-                <article class="project-card" data-video="./VID/gold.mp4">
+                <article class="project-card" data-video="./VID/gold.mp4" role="button" tabindex="0" aria-label="Open Gold Jewelry Store preview video">
                     <div class="project-thumbnail">
-                        <video src="./VID/gold.mp4"></video>
+                        <video src="./VID/gold.mp4" preload="metadata" playsinline muted tabindex="0"></video>
                         <div class="play-button">▶</div>
                     </div>
                     <div class="project-content">
@@ -160,11 +161,17 @@
             </div>
             <div class="skills-grid">
                 <div class="skill-card">JavaScript</div>
-                <div class="skill-card">HTML & CSS</div>
+                <div class="skill-card">React</div>
+                <div class="skill-card">Node.js</div>
+                <div class="skill-card">TypeScript</div>
+                <div class="skill-card">Tailwind CSS</div>
                 <div class="skill-card">Bootstrap</div>
-                <div class="skill-card">Responsive Design</div>
+                <div class="skill-card">HTML & CSS</div>
+                <div class="skill-card">SASS</div>
+                <div class="skill-card">Git</div>
+                <div class="skill-card">Docker</div>
+                <div class="skill-card">MySQL</div>
                 <div class="skill-card">Web Performance</div>
-                
             </div>
         </section>
 
